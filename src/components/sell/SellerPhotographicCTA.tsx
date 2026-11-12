@@ -65,8 +65,8 @@ export function SellerPhotographicCTA() {
 
           {/* Supporting Text */}
           <p className="mx-auto mt-6 max-w-2xl font-sans text-base font-light leading-relaxed text-charcoal/80 sm:text-lg lg:text-[19px]">
-            Buying, selling, or sitting on something you're not sure what to do
-            with—we'll tell you straight. Most conversations start on WhatsApp.
+            Buying, selling, or sitting on something you&apos;re not sure what to do
+            with—we&apos;ll tell you straight. Most conversations start on WhatsApp.
           </p>
 
           {/* Actions */}
