@@ -157,3 +157,22 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #5E3FD6;
 }
+
+@keyframes mm-iris-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mm-iris-beam {
+  animation: mm-iris-orbit 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-iris-beam {
+    animation: none !important;
+  }
+}

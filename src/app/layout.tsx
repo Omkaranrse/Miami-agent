@@ -8,7 +8,7 @@ import { BROKERAGE_INFO } from "@/lib/constants";
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  style: ["normal"],
+  style: ["normal", "italic"],
   variable: "--font-cormorant",
   display: "swap",
 });

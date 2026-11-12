@@ -1,17 +1,44 @@
+export interface NavDropdownItem {
+  label: string;
+  href: string;
+  description?: string;
+}
+
 export interface NavItem {
   title: string;
   link: string;
   tint: string;
   newTab?: boolean;
+  children?: NavDropdownItem[];
 }
 
 export const MAIN_NAV_ITEMS: NavItem[] = [
-  { title: "Properties", link: "/listings", tint: "#8B5CF6" },
   { title: "Buy", link: "/buy", tint: "#7C3AED" },
-  { title: "Sell", link: "/sell", tint: "#A78BFA" },
+  { title: "Search Homes", link: "/listings", tint: "#8B5CF6" },
+  { title: "Listings", link: "/listings?category=for-sale", tint: "#6D28D9" },
+  {
+    title: "Sell",
+    link: "/sell",
+    tint: "#A78BFA",
+    children: [
+      { label: "Sell With Move Miami", href: "/sell" },
+      { label: "Request a Cash Offer", href: "/cash-offer" },
+      { label: "Free Home Valuation", href: "/home-valuation" },
+      { label: "Net Proceeds Calculator", href: "/calculators/home-sale-caculator" },
+    ],
+  },
   { title: "About", link: "/about-us", tint: "#6D28D9" },
-  { title: "Our Team", link: "/agents", tint: "#9333EA" },
-  { title: "Contact", link: "/contact", tint: "#6366F1" },
+  { title: "Agents", link: "/about-us#team", tint: "#9333EA" },
+  {
+    title: "Calculators",
+    link: "/calculators",
+    tint: "#6366F1",
+    children: [
+      { label: "Monthly Mortgage", href: "/calculators?tab=mortgage" },
+      { label: "Home Affordability", href: "/calculators?tab=affordability" },
+      { label: "Home Sale Net Proceeds", href: "/calculators/home-sale-caculator" },
+    ],
+  },
 ];
 
 export const FOOTER_BROKERAGE_LINKS = [
