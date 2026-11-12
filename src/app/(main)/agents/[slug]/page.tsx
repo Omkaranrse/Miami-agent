@@ -5,7 +5,6 @@ import { ArrowLeft } from "lucide-react";
 import { getAgentBySlug, getAllAgentSlugs } from "@/lib/agents";
 import { BROKERAGE_INFO } from "@/lib/constants";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { AgentProfile } from "@/components/agents/AgentProfile";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
@@ -44,28 +43,29 @@ export default async function AgentDetailPage({
   if (!agent) notFound();
 
   return (
-    <div className="bg-ivory pt-28">
-      <div className="border-b border-sand bg-white py-4">
-        <PageContainer className="flex flex-wrap items-center justify-between gap-4">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Our Team", href: "/agents" },
-              { label: agent.name },
-            ]}
-          />
-          <Link
-            href="/agents"
-            className="inline-flex items-center gap-2 font-sans text-[14px] font-semibold tracking-[0.03em] text-navy hover:text-gold-dark"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>All Advisors</span>
-          </Link>
-        </PageContainer>
+    <div className="relative overflow-hidden bg-[linear-gradient(135deg,#F8F5FF_0%,#EDE3FF_52%,#DFD1FF_100%)] pt-28 md:pt-32">
+      {/* Ambient Lavender Halo */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-white/55 blur-3xl" />
+        <div className="absolute right-[6%] top-12 h-[440px] w-[440px] rounded-full bg-[#B998FF]/25 blur-3xl" />
       </div>
 
-      <section className="py-12 md:py-20">
+      <section className="relative z-10 pb-20 pt-4 md:pb-24">
         <PageContainer>
+          {/* Minimal Back Pill (Breadcrumbs removed for clean aesthetic) */}
+          <div className="mb-8">
+            <Link
+              href="/about-us#team"
+              className="inline-flex items-center gap-2 rounded-full border border-white/85 bg-white/75 px-4 py-2 font-sans text-[13px] font-semibold text-[#21124B] shadow-xs backdrop-blur-md transition-all hover:border-[#6136D6] hover:bg-white hover:text-[#4C2B9A]"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>All Advisors</span>
+            </Link>
+          </div>
+
           <AgentProfile agent={agent} />
         </PageContainer>
       </section>
@@ -74,4 +74,3 @@ export default async function AgentDetailPage({
     </div>
   );
 }
-

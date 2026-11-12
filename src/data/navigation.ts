@@ -28,7 +28,6 @@ export const MAIN_NAV_ITEMS: NavItem[] = [
     ],
   },
   { title: "About", link: "/about-us", tint: "#6D28D9" },
-  { title: "Agents", link: "/about-us#team", tint: "#9333EA" },
   {
     title: "Calculators",
     link: "/calculators",
