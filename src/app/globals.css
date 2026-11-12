@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #241748;
+  --color-navy-light: #352366;
+  --color-ivory: #F9F8FC;
+  --color-sand: #E2DCF0;
+  --color-sand-light: #EDE9F7;
+  --color-gold: #D4C6FF;
+  --color-gold-dark: #5E3FD6;
+  --color-charcoal: #1F1B2E;
+  --color-muted: #5C5570;
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #F9F8FC;
+    color: #1F1B2E;
+  }
+
+  body {
+    background-color: #F9F8FC;
+    color: #1F1B2E;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+  }
+
+  h1, h2, .font-editorial {
+    font-family: var(--font-serif);
+    font-style: normal;
+  }
+
+  h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-style: normal;
+  }
+
+  ::selection {
+    background-color: #241748;
+    color: #F9F8FC;
+  }
+}
+
+/* Reusable luxury real estate typography tokens */
+.heading-hero {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .heading-hero {
+    font-size: 48px;
+    line-height: 1.05;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading-hero {
+    font-size: 80px;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+}
+
+.heading-section {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+
+@media (min-width: 768px) {
+  .heading-section {
+    font-size: 40px;
+    line-height: 1.1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading-section {
+    font-size: 56px;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+  }
+}
+
+.heading-editorial {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+}
+
+.body-editorial {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+@media (min-width: 768px) {
+  .body-editorial {
+    font-size: 16px;
+  }
+}
+
+.text-nav {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.text-btn {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F9F8FC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E2DCF0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5E3FD6;
+}

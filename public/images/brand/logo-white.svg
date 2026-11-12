@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" role="img" aria-label="Move Miami Realtor">
+  <rect x="2" y="8" width="32" height="32" stroke="#D4C6FF" stroke-opacity="0.6" stroke-width="1.5" />
+  <path d="M10 30V18L18 25L26 18V30" stroke="#D4C6FF" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" />
+  <text x="46" y="25" fill="#F9F8FC" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="600" letter-spacing="0.06em">MOVE MIAMI</text>
+  <text x="46" y="38" fill="#D4C6FF" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="600" letter-spacing="0.28em">REALTOR</text>
+</svg>
