@@ -3,7 +3,18 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Loader2, MessageCircle, Phone, AlertCircle } from "lucide-react";
+import {
+  CheckCircle2,
+  Loader2,
+  Phone,
+  AlertCircle,
+  MessageCircle,
+  User,
+  Mail,
+  MessageSquare,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
 import type { Property } from "@/types/property";
 import {
   baseInquirySchema,
@@ -47,7 +58,7 @@ export function PropertyInquiry({ property }: { property: Property }) {
 
   const handleIntentChange = (next: InquiryPayload["intent"]) => {
     setSelectedIntent(next);
-    setValue("intent", next);
+    setValue("intent", next, { shouldValidate: true });
   };
 
   const onSubmit = async (values: InquiryPayload) => {
@@ -61,67 +72,77 @@ export function PropertyInquiry({ property }: { property: Property }) {
       const json = await response.json();
       if (!response.ok || !json.ok) {
         setServerError(
-          json.error ?? "Unable to send your request. Please try WhatsApp."
+          json.error ?? "Unable to send your request. Please reach us directly on WhatsApp."
         );
         return;
       }
       setSubmittedRef(json.referenceId ?? "RECEIVED");
     } catch {
       setServerError(
-        "Connection error while submitting. Please reach us on WhatsApp."
+        "Connection error while submitting. Please reach us directly on WhatsApp."
       );
     }
   };
 
-  const labelClass =
-    "block text-xs font-semibold uppercase tracking-[0.14em] text-navy";
-  const inputClass =
-    "mt-1.5 w-full border border-sand bg-ivory/60 px-3.5 py-3 text-sm text-charcoal placeholder:text-muted/70 focus:border-navy focus:bg-white focus:outline-none";
-
   return (
-    <div className="border border-sand bg-white p-7 sm:p-8">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-dark">
-        Direct Property Desk
-      </p>
-      <h2 className="mt-2 font-sans text-2xl font-semibold tracking-tight text-navy">
+    <div className="rounded-[30px] border border-white/90 bg-white/95 p-6 shadow-[0_24px_60px_-18px_rgba(45,20,108,0.14)] backdrop-blur-xl sm:p-8">
+      {/* Top Pill Badge */}
+      <div className="inline-flex items-center gap-2 rounded-full border border-[#E4D7FF] bg-[#F3ECFF] px-3.5 py-1.5">
+        <Sparkles className="h-3.5 w-3.5 text-[#5B2EC6]" />
+        <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#4C2B9A]">
+          Direct Property Desk
+        </span>
+      </div>
+
+      {/* Heading */}
+      <h2 className="mt-4 font-sans text-2xl font-bold tracking-tight text-[#160B30] sm:text-[26px]">
         {isVacation ? "Check Dates & Terms" : "Inquire About This Property"}
       </h2>
-      <p className="mt-2 text-[15px] leading-relaxed text-charcoal/75">
-        No middleman call centers—you reach Move Miami Realty directly.
+      <p className="mt-2 font-sans text-[14px] leading-relaxed text-[#51476E]">
+        Direct advisor communication with Move Miami Realty. No third-party call centers.
       </p>
 
-      <div className="mt-5 flex flex-col gap-2.5 border-b border-sand pb-6">
+      {/* Instant Direct Reach (WhatsApp & Call) */}
+      <div className="mt-5 flex flex-col gap-2.5 border-b border-[#EDE5FA] pb-6">
         <a
           href={`${BROKERAGE_INFO.whatsappHref}?text=${encodeURIComponent(
             `Hi Move Miami, I'm interested in ${property.address} (${property.priceLabel}).`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex w-full items-center justify-center gap-2 bg-navy px-5 py-3.5 font-sans text-[14px] font-semibold tracking-[0.04em] text-white hover:bg-navy-light"
+          className="inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-5 py-3.5 font-sans text-[14px] font-bold text-white shadow-md transition-all hover:bg-[#20BA5A] hover:shadow-lg active:scale-[0.99]"
         >
-          <MessageCircle className="h-4 w-4 text-gold" />
+          <MessageCircle className="h-4 w-4 fill-white" />
           <span>WhatsApp About This Home</span>
         </a>
+
         <a
           href={BROKERAGE_INFO.officePhoneHref}
-          className="inline-flex w-full items-center justify-center gap-2 border border-sand px-5 py-3 font-sans text-[14px] font-semibold tracking-[0.04em] text-navy hover:border-navy"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#E5DBFB] bg-white/90 px-5 py-3 font-sans text-[13.5px] font-semibold text-[#160B30] shadow-2xs transition-all hover:border-[#7C52EB] hover:bg-[#FAF8FF]"
         >
-          <Phone className="h-4 w-4 text-gold-dark" />
+          <Phone className="h-4 w-4 text-[#5B2EC6]" />
           <span>Call {BROKERAGE_INFO.officePhoneDisplay}</span>
         </a>
       </div>
 
+      {/* Submission State or Form */}
       <div className="mt-6">
         {submittedRef ? (
-          <div className="border border-sand bg-ivory p-6">
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-gold-dark" />
+          <div className="rounded-2xl border border-emerald-500/25 bg-emerald-50/60 p-6 text-left">
+            <div className="flex items-start gap-3.5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <CheckCircle2 className="h-5 w-5" />
+              </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-dark">
-                  Request Received · {submittedRef}
+                <p className="font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-800">
+                  Request Received · Ref {submittedRef}
                 </p>
-                <p className="mt-1 font-sans text-xl font-semibold text-navy">
-                  We’ll reply within 1 business day.
+                <p className="mt-1 font-sans text-lg font-bold text-[#160B30]">
+                  We&apos;ll be in touch within 1 business day.
+                </p>
+                <p className="mt-1 text-xs text-[#51476E]">
+                  A Move Miami advisor has received your request regarding{" "}
+                  {property.address}.
                 </p>
                 <button
                   type="button"
@@ -130,15 +151,16 @@ export function PropertyInquiry({ property }: { property: Property }) {
                     setSelectedIntent(defaultIntent);
                     reset();
                   }}
-                  className="mt-4 border border-sand bg-white px-4 py-2 font-sans text-[14px] font-semibold tracking-[0.03em] text-navy hover:border-navy"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#E5DBFB] bg-white px-4 py-2 font-sans text-[12.5px] font-semibold text-[#160B30] transition-all hover:border-[#7C52EB] hover:bg-[#FAF8FF]"
                 >
-                  Send Another Note
+                  Send Another Inquiry
                 </button>
               </div>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+            {/* Honeypot anti-spam field */}
             <input
               type="text"
               tabIndex={-1}
@@ -148,124 +170,176 @@ export function PropertyInquiry({ property }: { property: Property }) {
               {...register("company")}
             />
 
+            {/* Intent Switcher Pills */}
             <div>
-              <span className={labelClass}>I want to…</span>
+              <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#51476E]">
+                I want to…
+              </span>
               <div className="mt-2 grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => handleIntentChange(defaultIntent)}
-                  className={`border px-3 py-2.5 text-xs font-semibold tracking-wide transition-colors ${
+                  className={`rounded-xl border px-3.5 py-2.5 font-sans text-[12.5px] font-semibold transition-all ${
                     selectedIntent === defaultIntent
-                      ? "border-navy bg-navy text-white"
-                      : "border-sand bg-white text-charcoal hover:border-navy"
+                      ? "border-[#7C52EB] bg-[#F3ECFF] text-[#321477] shadow-[0_0_0_1px_rgba(124,82,235,0.4)]"
+                      : "border-[#E5DBFB] bg-white text-[#51476E] hover:border-[#7C52EB]/50 hover:bg-[#FAF8FF]"
                   }`}
                 >
-                  {isVacation ? "Check availability" : "Schedule a showing"}
+                  {isVacation ? "Check Availability" : "Schedule Showing"}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleIntentChange("request-info")}
-                  className={`border px-3 py-2.5 text-xs font-semibold tracking-wide transition-colors ${
+                  className={`rounded-xl border px-3.5 py-2.5 font-sans text-[12.5px] font-semibold transition-all ${
                     selectedIntent === "request-info"
-                      ? "border-navy bg-navy text-white"
-                      : "border-sand bg-white text-charcoal hover:border-navy"
+                      ? "border-[#7C52EB] bg-[#F3ECFF] text-[#321477] shadow-[0_0_0_1px_rgba(124,82,235,0.4)]"
+                      : "border-[#E5DBFB] bg-white text-[#51476E] hover:border-[#7C52EB]/50 hover:bg-[#FAF8FF]"
                   }`}
                 >
-                  Request info
+                  Request Info
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {/* Name Fields */}
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               <div>
-                <label htmlFor="prop-first" className={labelClass}>
-                  First Name *
+                <label
+                  htmlFor="prop-first"
+                  className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#51476E]"
+                >
+                  First Name <span className="text-rose-500">*</span>
                 </label>
-                <input
-                  id="prop-first"
-                  type="text"
-                  className={inputClass}
-                  {...register("firstName")}
-                />
+                <div className="relative mt-1.5">
+                  <User className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8B7CA8]" />
+                  <input
+                    id="prop-first"
+                    type="text"
+                    placeholder="First name"
+                    className="w-full rounded-2xl border border-[#E5DBFB] bg-white py-3 pl-10 pr-3 font-sans text-[13.5px] text-[#160B30] placeholder:text-[#9A8FB3] transition-all focus:border-[#7C52EB] focus:outline-none focus:ring-4 focus:ring-[#7C52EB]/15"
+                    {...register("firstName")}
+                  />
+                </div>
                 {errors.firstName && (
-                  <p className="mt-1 text-xs text-red-600">
+                  <p className="mt-1 text-xs font-semibold text-rose-600">
                     {errors.firstName.message}
                   </p>
                 )}
               </div>
+
               <div>
-                <label htmlFor="prop-last" className={labelClass}>
+                <label
+                  htmlFor="prop-last"
+                  className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#51476E]"
+                >
                   Last Name
                 </label>
-                <input
-                  id="prop-last"
-                  type="text"
-                  className={inputClass}
-                  {...register("lastName")}
-                />
+                <div className="relative mt-1.5">
+                  <User className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8B7CA8]" />
+                  <input
+                    id="prop-last"
+                    type="text"
+                    placeholder="Last name"
+                    className="w-full rounded-2xl border border-[#E5DBFB] bg-white py-3 pl-10 pr-3 font-sans text-[13.5px] text-[#160B30] placeholder:text-[#9A8FB3] transition-all focus:border-[#7C52EB] focus:outline-none focus:ring-4 focus:ring-[#7C52EB]/15"
+                    {...register("lastName")}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {/* Email & Phone Fields */}
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               <div>
-                <label htmlFor="prop-email" className={labelClass}>
-                  Email *
+                <label
+                  htmlFor="prop-email"
+                  className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#51476E]"
+                >
+                  Email <span className="text-rose-500">*</span>
                 </label>
-                <input
-                  id="prop-email"
-                  type="email"
-                  className={inputClass}
-                  {...register("email")}
-                />
+                <div className="relative mt-1.5">
+                  <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8B7CA8]" />
+                  <input
+                    id="prop-email"
+                    type="email"
+                    placeholder="you@email.com"
+                    className="w-full rounded-2xl border border-[#E5DBFB] bg-white py-3 pl-10 pr-3 font-sans text-[13.5px] text-[#160B30] placeholder:text-[#9A8FB3] transition-all focus:border-[#7C52EB] focus:outline-none focus:ring-4 focus:ring-[#7C52EB]/15"
+                    {...register("email")}
+                  />
+                </div>
                 {errors.email && (
-                  <p className="mt-1 text-xs text-red-600">
+                  <p className="mt-1 text-xs font-semibold text-rose-600">
                     {errors.email.message}
                   </p>
                 )}
               </div>
+
               <div>
-                <label htmlFor="prop-phone" className={labelClass}>
-                  Phone (optional)
+                <label
+                  htmlFor="prop-phone"
+                  className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#51476E]"
+                >
+                  Phone (Optional)
                 </label>
-                <input
-                  id="prop-phone"
-                  type="tel"
-                  placeholder="(305) 555-0199"
-                  className={inputClass}
-                  {...register("phone")}
+                <div className="relative mt-1.5">
+                  <Phone className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8B7CA8]" />
+                  <input
+                    id="prop-phone"
+                    type="tel"
+                    placeholder="(305) 555-0199"
+                    className="w-full rounded-2xl border border-[#E5DBFB] bg-white py-3 pl-10 pr-3 font-sans text-[13.5px] text-[#160B30] placeholder:text-[#9A8FB3] transition-all focus:border-[#7C52EB] focus:outline-none focus:ring-4 focus:ring-[#7C52EB]/15"
+                    {...register("phone")}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Message Field */}
+            <div>
+              <label
+                htmlFor="prop-msg"
+                className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#51476E]"
+              >
+                Message
+              </label>
+              <div className="relative mt-1.5">
+                <MessageSquare className="pointer-events-none absolute left-3.5 top-3.5 h-4 w-4 text-[#8B7CA8]" />
+                <textarea
+                  id="prop-msg"
+                  rows={3}
+                  placeholder="Preferred dates, questions about HOA, financing, or property tour times..."
+                  className="w-full rounded-2xl border border-[#E5DBFB] bg-white py-3 pl-10 pr-3 font-sans text-[13.5px] text-[#160B30] placeholder:text-[#9A8FB3] transition-all focus:border-[#7C52EB] focus:outline-none focus:ring-4 focus:ring-[#7C52EB]/15"
+                  {...register("message")}
                 />
               </div>
             </div>
 
-            <div>
-              <label htmlFor="prop-msg" className={labelClass}>
-                Message
-              </label>
-              <textarea
-                id="prop-msg"
-                rows={3}
-                placeholder="Preferred dates or times for a showing..."
-                className={inputClass}
-                {...register("message")}
-              />
-            </div>
-
+            {/* Server Error Alert */}
             {serverError && (
-              <div className="flex items-start gap-2 border border-red-300 bg-red-50 p-3 text-xs text-red-800">
+              <div className="flex items-start gap-2.5 rounded-2xl border border-rose-300 bg-rose-50 p-3.5 text-xs text-rose-800">
                 <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                 <span>{serverError}</span>
               </div>
             )}
 
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex w-full items-center justify-center gap-2 bg-navy px-6 py-4 font-sans text-[14px] font-semibold tracking-[0.04em] text-white transition-colors hover:bg-navy-light disabled:opacity-60"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#321477] via-[#5B2EC6] to-[#7C52EB] px-6 py-4 font-sans text-[14px] font-bold text-white shadow-[0_12px_28px_-6px_rgba(91,46,198,0.45)] transition-all hover:shadow-[0_16px_32px_-6px_rgba(91,46,198,0.6)] hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60"
             >
-              {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
-              <span>
-                {isVacation ? "Check Availability" : "Request a Showing"}
-              </span>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Sending Your Inquiry...</span>
+                </>
+              ) : (
+                <>
+                  <span>
+                    {isVacation ? "Check Availability" : "Request a Showing"}
+                  </span>
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
             </button>
           </form>
         )}
@@ -273,4 +347,3 @@ export function PropertyInquiry({ property }: { property: Property }) {
     </div>
   );
 }
-

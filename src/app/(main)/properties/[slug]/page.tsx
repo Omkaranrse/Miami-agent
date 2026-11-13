@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowRight, MapPin, Sparkles } from "lucide-react";
 import {
   getAllPropertySlugs,
   getProperties,
@@ -9,7 +9,7 @@ import {
 } from "@/lib/properties";
 import { BROKERAGE_INFO } from "@/lib/constants";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { BackPill, Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PropertyStatus } from "@/components/properties/PropertyStatus";
 import { PropertyGallery } from "@/components/properties/PropertyGallery";
 import { PropertyDetails } from "@/components/properties/PropertyDetails";
@@ -32,7 +32,7 @@ export async function generateMetadata({
   if (!property) return { title: "Property Not Found" };
 
   return {
-    title: `${property.address} — ${property.priceLabel}`,
+    title: `${property.address} — ${property.priceLabel} | Move Miami Realtor`,
     description: `${property.address} in ${property.neighborhood}, ${property.city}. ${property.summary}`,
     openGraph: {
       title: `${property.address} — ${property.priceLabel} | ${BROKERAGE_INFO.brandName}`,
@@ -57,64 +57,74 @@ export default async function PropertyDetailPage({
     .slice(0, 3);
 
   return (
-    <div className="bg-ivory pt-28">
-      {/* Top Breadcrumb Bar */}
-      <div className="border-b border-sand bg-white py-4">
+    <div className="relative w-full overflow-hidden bg-[linear-gradient(180deg,#F8F5FF_0%,#F3EDFC_45%,#EDE5FA_100%)]">
+      {/* Ambient Lighting Halos */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div className="absolute -left-32 top-20 h-[520px] w-[520px] rounded-full bg-white/70 blur-3xl" />
+        <div className="absolute right-[-10%] top-40 h-[500px] w-[500px] rounded-full bg-[#C2A3FF]/20 blur-3xl" />
+        <div className="absolute left-1/3 top-[800px] h-[400px] w-[400px] rounded-full bg-[#7C52EB]/10 blur-3xl" />
+      </div>
+
+      {/* Top Floating Navigation Bar */}
+      <div className="relative z-10 pt-28 sm:pt-32 pb-4">
         <PageContainer className="flex flex-wrap items-center justify-between gap-4">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Properties", href: "/listings" },
-              { label: property.address },
-            ]}
-          />
-          <Link
-            href="/listings"
-            className="inline-flex items-center gap-2 font-sans text-[14px] font-semibold tracking-[0.03em] text-navy hover:text-gold-dark"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Back to All Listings</span>
-          </Link>
+          <BackPill href="/listings" label="Back to All Listings" />
+          <div className="hidden md:block">
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Listings", href: "/listings" },
+                { label: property.address },
+              ]}
+            />
+          </div>
         </PageContainer>
       </div>
 
       {/* Header & Two-Column Detail View */}
-      <section className="py-10 md:py-14">
+      <section className="relative z-10 pb-16 pt-2 md:pb-24">
         <PageContainer>
-          <div className="mb-8 flex flex-col justify-between gap-6 border-b border-sand pb-8 lg:flex-row lg:items-end">
+          {/* Main Property Headline Banner */}
+          <div className="mb-8 flex flex-col justify-between gap-6 border-b border-[#E5DBFB]/80 pb-8 lg:flex-row lg:items-end">
             <div>
-              <div className="max-w-xs">
-                <PropertyStatus
-                  status={property.status}
-                  category={property.category}
-                />
-              </div>
+              <PropertyStatus
+                status={property.status}
+                category={property.category}
+              />
 
-              <h1 className="mt-4 font-sans text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-[42px]">
+              <h1 className="mt-4 font-sans text-3xl font-extrabold tracking-tight text-[#160B30] sm:text-4xl lg:text-[44px]">
                 {property.title
                   ? `${property.title} · ${property.address}`
                   : property.address}
               </h1>
-              <p className="mt-2 font-sans text-base text-muted">
-                {property.neighborhood}, {property.city}, {property.state}
-                {property.zip ? ` ${property.zip}` : ""}
-              </p>
+
+              <div className="mt-2.5 flex items-center gap-2 font-sans text-base text-[#51476E]">
+                <MapPin className="h-4 w-4 shrink-0 text-[#7C52EB]" />
+                <span>
+                  {property.neighborhood}, {property.city}, {property.state}
+                  {property.zip ? ` ${property.zip}` : ""}
+                </span>
+              </div>
             </div>
 
             <div className="lg:text-right">
-              <p className="font-sans text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+              <p className="font-sans text-3xl font-extrabold tracking-tight text-[#160B30] sm:text-4xl lg:text-5xl">
                 {property.priceLabel}
               </p>
               {property.pricePerSqft !== undefined && (
-                <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-muted">
-                  ${property.pricePerSqft.toLocaleString()} / sq ft
+                <p className="mt-1.5 font-sans text-[11.5px] font-bold uppercase tracking-[0.16em] text-[#5B2EC6]">
+                  ${property.pricePerSqft.toLocaleString()} / SQ FT
                 </p>
               )}
             </div>
           </div>
 
+          {/* Grid Layout: Left Content, Right Inquiry Desk */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-            {/* Left Column: Gallery, Details, Highlights & Concepts */}
+            {/* Left Column: Gallery, Overview Details, Features, Renderings & MLS Disclosure */}
             <div className="lg:col-span-7">
               <PropertyGallery
                 images={property.gallery}
@@ -125,11 +135,11 @@ export default async function PropertyDetailPage({
               <PropertyFeatures property={property} />
 
               {property.dataSource === "mls-idx-feed" && (
-                <div className="mt-8 border border-sand bg-white p-6 text-xs leading-relaxed text-muted">
-                  <p className="font-semibold uppercase tracking-[0.14em] text-navy">
+                <div className="mt-8 rounded-[24px] border border-[#E5DBFB] bg-white/80 p-6 text-xs leading-relaxed text-[#51476E] shadow-sm backdrop-blur-md">
+                  <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#160B30]">
                     South Florida MLS IDX Disclosure
                   </p>
-                  <p className="mt-2">
+                  <p className="mt-2 font-sans text-[12px] leading-relaxed text-[#51476E]">
                     Listing courtesy of participating MIAMI REALTORS® broker.
                     Information is deemed reliable but not guaranteed and
                     provided exclusively for prospective buyers’ personal,
@@ -149,26 +159,32 @@ export default async function PropertyDetailPage({
         </PageContainer>
       </section>
 
-      {/* Related Listings */}
-      <section className="border-t border-sand bg-white py-16 md:py-20">
+      {/* Related Portfolio Listings */}
+      <section className="relative z-10 border-t border-[#E5DBFB]/70 bg-white/90 py-16 backdrop-blur-md md:py-24">
         <PageContainer>
-          <div className="flex items-end justify-between gap-4">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark">
-                More Listings
-              </p>
-              <h2 className="heading-section mt-2 text-navy">
-                Explore the rest of our portfolio.
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#E4D7FF] bg-[#F3ECFF] px-3.5 py-1.5">
+                <Sparkles className="h-3.5 w-3.5 text-[#5B2EC6]" />
+                <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#4C2B9A]">
+                  More Curated Residences
+                </span>
+              </div>
+              <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-[#160B30] sm:text-4xl">
+                Explore the Rest of Our Portfolio
               </h2>
             </div>
+
             <Link
               href="/listings"
-              className="font-sans text-[14px] font-semibold tracking-[0.03em] text-navy underline underline-offset-4 hover:text-gold-dark"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#E5DBFB] bg-white px-5 py-2.5 font-sans text-[13.5px] font-bold text-[#321477] shadow-xs transition-all hover:border-[#7C52EB] hover:bg-[#FAF8FF]"
             >
-              See All Listings
+              <span>See All Listings</span>
+              <ArrowRight className="h-4 w-4 text-[#7C52EB]" />
             </Link>
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+
+          <div className="mt-10 grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
             {related.map((item) => (
               <PropertyCard key={item.slug} property={item} />
             ))}
@@ -178,4 +194,3 @@ export default async function PropertyDetailPage({
     </div>
   );
 }
-

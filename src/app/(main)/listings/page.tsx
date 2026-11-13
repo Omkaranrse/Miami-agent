@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import type { PropertyCategory, PropertyType } from "@/types/property";
 import { getProperties } from "@/lib/properties";
 import { buildPageMetadata } from "@/lib/seo";
@@ -8,7 +8,7 @@ import { PropertyGrid } from "@/components/properties/PropertyGrid";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const metadata = buildPageMetadata({
-  title: "Miami Properties & MLS Listings",
+  title: "Miami Properties & MLS Listings | Move Miami Realtor",
   description:
     "Browse curated Move Miami exclusive properties for sale, for rent, and Florida Keys vacation rentals alongside live South Florida MLS inventory.",
   path: "/listings",
@@ -39,38 +39,69 @@ export default async function ListingsPage({
   const rawCategory = (resolved.category ?? "all") as PropertyCategory | "all";
   const rawType = (resolved.type ?? "all") as PropertyType | "all";
 
+  const totalCount = portfolioProperties.length;
+
   return (
-    <>
-      <section className="border-b border-sand bg-navy pb-14 pt-32 text-ivory md:pb-16 md:pt-40">
-        <PageContainer>
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <div className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gold">
-                <span className="h-px w-8 bg-gold" aria-hidden="true" />
-                <span>Miami-Dade, Broward &amp; Florida Keys</span>
+    <div className="relative w-full overflow-hidden">
+      {/* 1. Luxury Twilight / Lavender Hero */}
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#F7F3FF_0%,#F1EBFF_52%,#EDE5FA_100%)] pb-12 pt-32 sm:pb-16 sm:pt-36 md:pt-40">
+        {/* Ambient Subtle Lighting Halos */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 overflow-hidden"
+        >
+          <div className="absolute -left-32 top-8 h-[460px] w-[460px] rounded-full bg-white/70 blur-3xl" />
+          <div className="absolute right-[-8%] top-16 h-[460px] w-[460px] rounded-full bg-[#C2A3FF]/25 blur-3xl" />
+          <div className="absolute left-1/2 top-40 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-[#7C52EB]/10 blur-3xl" />
+        </div>
+
+        <PageContainer className="relative z-10">
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <div className="max-w-3xl">
+              {/* Eyebrow Pill */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#E4D7FF] bg-white/80 px-4 py-1.5 shadow-xs backdrop-blur-sm">
+                <span className="h-2 w-2 rounded-full bg-[#5B2EC6]" />
+                <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#4C2B9A]">
+                  Miami Real Estate Collection
+                </span>
+                <span className="ml-1 rounded-full bg-[#F0E8FF] px-2 py-0.5 text-[10.5px] font-bold text-[#5B2EC6]">
+                  {totalCount} Curated
+                </span>
               </div>
-              <h1 className="heading-hero mt-3 text-white">
-                Properties &amp; Curated Inventory
+
+              {/* Main Heading with Editorial Accent */}
+              <h1 className="mt-5 font-sans text-4xl font-extrabold tracking-tight text-[#160B30] sm:text-5xl lg:text-6xl">
+                Find Your Place in{" "}
+                <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#321477] via-[#5B2EC6] to-[#7C52EB]">
+                  Miami.
+                </span>
               </h1>
-              <p className="body-editorial mt-4 max-w-2xl text-ivory/80">
-                Explore Move Miami Realty’s active residential, redevelopment,
-                and vacation rental portfolio—or toggle over to our South Florida
-                MLS IDX feed.
+
+              {/* Supporting Editorial Paragraph */}
+              <p className="mt-4 max-w-2xl font-sans text-[16px] leading-relaxed text-[#51476E] sm:text-[17px]">
+                Explore thoughtfully selected properties across Miami-Dade and
+                Broward—from waterfront estates and luxury condominiums to
+                exclusive off-market opportunities.
               </p>
             </div>
 
-            <Link
-              href="/buy"
-              className="inline-flex shrink-0 items-center gap-2 border border-gold/60 bg-navy-light px-5 py-3 font-sans text-[14px] font-semibold tracking-[0.04em] text-gold transition-colors hover:bg-gold hover:text-navy"
-            >
-              <span>Request Off-Market Options</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            {/* Request Off-Market Action */}
+            <div className="flex shrink-0 items-center gap-3">
+              <Link
+                href="/buy"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#321477] via-[#5B2EC6] to-[#7C52EB] px-6 py-3.5 font-sans text-[14px] font-bold text-white shadow-[0_12px_28px_-6px_rgba(91,46,198,0.45)] transition-all hover:shadow-[0_16px_32px_-6px_rgba(91,46,198,0.6)] hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <Sparkles className="h-4 w-4 text-[#E3D4FF] transition-transform group-hover:rotate-12" />
+                <span>Request Off-Market Options</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
           </div>
         </PageContainer>
       </section>
 
-      <section className="bg-ivory py-12 md:py-16">
+      {/* 2. Listings Filter Bar & Property Grid Canvas */}
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#EDE5FA_0%,#F4EEFD_12%,#FAF8FF_50%,#FFFFFF_100%)] py-10 md:py-16">
         <PageContainer>
           <PropertyGrid
             portfolioProperties={portfolioProperties}
@@ -84,8 +115,8 @@ export default async function ListingsPage({
         </PageContainer>
       </section>
 
+      {/* 3. Final Conversion CTA */}
       <FinalCTA />
-    </>
+    </div>
   );
 }
-
