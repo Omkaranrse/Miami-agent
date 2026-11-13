@@ -77,92 +77,75 @@ export function AboutPreview() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Left Framed Team Yacht Photo with Tilted Lavender Card & App Badge */}
+          {/* Left Framed Team Yacht Photo with Ambient Ribbon & Original Logo Badge */}
           <Reveal className="lg:col-span-5">
-            <div className="relative mx-auto max-w-[460px] py-4">
-              {/* Tilted Frosted Lavender Backing Card */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-4 -rotate-6 rounded-[34px] border border-white/80 bg-gradient-to-br from-[#DFD1FF]/85 via-[#F2EDFF]/80 to-[#CDBAFF]/85 shadow-[0_24px_60px_-16px_rgba(92,43,212,0.28)]"
-              />
-
+            <div className="relative mx-auto max-w-[480px] p-2 sm:p-3">
               {/* Main Rounded Photo Frame */}
-              <div className="relative aspect-[4/4.2] overflow-hidden rounded-[28px] border-2 border-white bg-[#EDE9F7] shadow-[0_26px_65px_-16px_rgba(68,32,158,0.3)]">
+              <div className="relative aspect-[1244/1280] overflow-hidden rounded-[32px] border-[2.5px] border-white bg-[#EDE9F7] shadow-[0_24px_55px_-12px_rgba(45,18,105,0.22),0_8px_20px_-4px_rgba(45,18,105,0.12)] sm:rounded-[36px]">
                 <Image
                   src="/images/heroes/team-group.jpg"
                   alt="Move Miami Realtor team together on a yacht in Miami"
                   fill
                   sizes="(max-width: 1024px) 100vw, 44vw"
                   className="object-cover object-center"
+                  priority
                 />
               </div>
 
-              {/* Pastel Purple Curved Ribbon Accent across Bottom-Left */}
+              {/* Pastel Purple Curved Ribbon Accent sweeping across Bottom-Left */}
               <svg
-                viewBox="0 0 360 110"
+                viewBox="0 0 460 160"
                 fill="none"
                 aria-hidden="true"
-                className="pointer-events-none absolute -bottom-2 -left-4 z-10 w-[85%]"
+                className="pointer-events-none absolute -bottom-5 -left-5 z-10 w-[90%]"
               >
                 <defs>
                   <linearGradient
-                    id="about-ribbon-grad"
-                    x1="0"
-                    y1="20"
-                    x2="340"
-                    y2="95"
-                    gradientUnits="userSpaceOnUse"
+                    id="team-swoop-grad"
+                    x1="0%"
+                    y1="30%"
+                    x2="100%"
+                    y2="70%"
                   >
-                    <stop offset="0%" stopColor="#E4D7FF" stopOpacity="0.95" />
-                    <stop offset="48%" stopColor="#9A68F7" stopOpacity="0.88" />
-                    <stop offset="100%" stopColor="#EFEAFF" stopOpacity="0.95" />
+                    <stop offset="0%" stopColor="#DFD2FE" stopOpacity="0.95" />
+                    <stop offset="30%" stopColor="#A87FFB" stopOpacity="0.9" />
+                    <stop offset="70%" stopColor="#7E52EB" stopOpacity="0.85" />
+                    <stop offset="100%" stopColor="#C4B5FD" stopOpacity="0.95" />
                   </linearGradient>
+                  <filter
+                    id="ribbon-glow"
+                    x="-10%"
+                    y="-10%"
+                    width="120%"
+                    height="120%"
+                  >
+                    <feDropShadow
+                      dx="0"
+                      dy="4"
+                      stdDeviation="5"
+                      floodColor="rgba(110, 58, 222, 0.25)"
+                    />
+                  </filter>
                 </defs>
                 <path
-                  d="M8 18 C 36 82, 168 106, 336 82"
-                  stroke="url(#about-ribbon-grad)"
-                  strokeWidth="8"
+                  d="M16 32 C 16 98, 72 142, 185 142 C 285 142, 370 122, 440 102"
+                  stroke="url(#team-swoop-grad)"
+                  strokeWidth="11"
                   strokeLinecap="round"
+                  filter="url(#ribbon-glow)"
                 />
               </svg>
 
-              {/* Bottom-Right Floating Move Miami Tile */}
-              <div className="absolute -bottom-2 right-4 z-20 rounded-[22px] border border-white bg-gradient-to-br from-white via-[#F6F1FF] to-[#DFD0FF] px-4 py-3.5 shadow-[0_18px_40px_-10px_rgba(74,38,168,0.32)]">
-                <div className="flex flex-col items-center leading-none text-[#2B1761]">
-                  <span className="flex items-end gap-0.5 font-sans text-[14px] font-extrabold tracking-[0.04em]">
-                    <span>MOVE</span>
-                    <svg
-                      width="16"
-                      height="18"
-                      viewBox="0 0 24 26"
-                      fill="none"
-                      aria-hidden="true"
-                      className="mb-px shrink-0 text-[#5C31C7]"
-                    >
-                      <path
-                        d="M12 24C12.1 18.4 12.6 13.8 13.4 9.5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M13.3 9.4C10.5 6.8 6.4 6.5 3.6 8.3C6.8 7.8 9.9 8.7 12.6 10.6C9.2 10.6 5.9 12 4.1 14.3C7.1 12.7 10.2 12 12.8 11.7"
-                        fill="currentColor"
-                      />
-                      <path
-                        d="M13.4 9.4C13.6 5.8 11.7 3 8.9 1.9C11.3 3.7 12.6 6.2 13 9.2"
-                        fill="currentColor"
-                      />
-                      <path
-                        d="M13.4 9.3C15.9 6 19.7 5.2 22.4 6.8C19.5 6.6 16.6 7.8 14.1 10.2C17.2 10 20.1 11.1 21.8 13.2C19.1 11.8 16.3 11.4 13.8 11.4"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </span>
-                  <span className="mt-0.5 font-sans text-[14px] font-extrabold tracking-[0.06em]">
-                    MIAMI
-                  </span>
-                </div>
+              {/* Bottom-Right Floating Original Brand Logo Badge */}
+              <div className="absolute -bottom-3 right-3 z-20 flex items-center justify-center rounded-[22px] border border-white/90 bg-white/95 px-5 py-3 shadow-[0_16px_36px_-8px_rgba(45,18,105,0.25)] backdrop-blur-md transition-transform duration-300 hover:scale-[1.03] sm:-bottom-4 sm:right-5">
+                <Image
+                  src="/images/brand/logo-transparent.png"
+                  alt="Move Miami Realtor"
+                  width={135}
+                  height={48}
+                  className="h-8 sm:h-9 w-auto object-contain"
+                  priority
+                />
               </div>
             </div>
           </Reveal>

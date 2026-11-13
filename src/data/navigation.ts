@@ -38,6 +38,7 @@ export const MAIN_NAV_ITEMS: NavItem[] = [
       { label: "Home Sale Net Proceeds", href: "/calculators/home-sale-caculator" },
     ],
   },
+  { title: "Contact", link: "/contact", tint: "#7C3AED" },
 ];
 
 export const FOOTER_BROKERAGE_LINKS = [

@@ -271,15 +271,6 @@ export function Navbar() {
                   )}
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-3 py-2.5 font-sans text-[14px] font-semibold text-[#1F1B2E] hover:bg-[#F3EFFC] hover:text-[#4D2DB5]"
-                >
-                  Contact
-                </Link>
-              </li>
             </ul>
 
             <div className="mt-4 flex flex-col gap-2.5 border-t border-[#E2DCF0] pt-4">
