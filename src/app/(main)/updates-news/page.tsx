@@ -3,6 +3,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { ArticleGrid } from "@/components/content/ArticleGrid";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata = buildPageMetadata({
   title: "Miami Real Estate Updates & Guides",
@@ -18,7 +19,7 @@ export default async function UpdatesNewsPage() {
     <>
       <section className="border-b border-sand bg-ivory pb-14 pt-32 md:pb-16 md:pt-40">
         <PageContainer>
-          <div className="max-w-4xl">
+          <Reveal variant="fade-up" className="max-w-4xl">
             <div className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gold-dark">
               <span className="h-px w-8 bg-gold" aria-hidden="true" />
               <span>Move Miami Editorial</span>
@@ -31,7 +32,7 @@ export default async function UpdatesNewsPage() {
               South Miami, and Miami Beach alongside cross-border and legal
               real estate guides.
             </p>
-          </div>
+          </Reveal>
         </PageContainer>
       </section>
 

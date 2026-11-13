@@ -3,6 +3,7 @@ import { ArrowRight, Play } from "lucide-react";
 import { YOUTUBE_VIDEOS } from "@/data/videos";
 import { BROKERAGE_INFO } from "@/lib/constants";
 import { FluidGlassButton } from "@/components/ui/FluidGlassButton";
+import { Reveal } from "@/components/ui/Reveal";
 
 export function VideoShowcase() {
   const featured = YOUTUBE_VIDEOS.slice(0, 6);
@@ -47,7 +48,7 @@ export function VideoShowcase() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header Row */}
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <Reveal variant="fade-up" className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#D4C5F9] bg-white/80 px-3.5 py-1.5 backdrop-blur-sm">
               <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#683CE0] text-white">
@@ -116,69 +117,75 @@ export function VideoShowcase() {
               <ArrowRight className="h-4 w-4" />
             </FluidGlassButton>
           </div>
-        </div>
+        </Reveal>
 
         {/* 6-Video Grid (3x2) */}
         <div className="mt-12 grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {featured.map((video) => (
-            <a
+          {featured.map((video, idx) => (
+            <Reveal
               key={video.id}
-              href={video.youtubeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col overflow-hidden rounded-[24px] border border-white/95 bg-white/85 shadow-[0_20px_50px_-16px_rgba(68,32,158,0.18)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_26px_55px_-14px_rgba(88,45,198,0.28)]"
+              delay={idx * 0.06}
+              variant="fade-up"
+              distance={16}
             >
-              {/* Video Thumbnail + Wave Cut */}
-              <div className="relative aspect-[16/9.5] overflow-hidden bg-[#241748]">
-                <Image
-                  src={video.thumbnail}
-                  alt={video.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-[#1B1038]/12 transition-colors group-hover:bg-[#1B1038]/24" />
-
-                {/* Top-Right Metadata Pill */}
-                <span className="absolute right-3.5 top-3.5 z-10 rounded-full bg-[#1C1238]/75 px-3 py-1 font-sans text-[11px] font-semibold text-white backdrop-blur-sm">
-                  {video.views}
-                </span>
-
-                {/* Center White Play Button */}
-                <span className="absolute inset-0 z-10 flex items-center justify-center">
-                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-[#6136D6] shadow-[0_12px_28px_-6px_rgba(36,23,72,0.45)] transition-transform duration-300 group-hover:scale-110">
-                    <Play className="ml-0.5 h-5 w-5 fill-current" />
-                  </span>
-                </span>
-
-                {/* Curved Bottom Wave Transition */}
-                <svg
-                  viewBox="0 0 400 32"
-                  fill="none"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 -bottom-px z-10 h-7 w-full"
-                >
-                  <path
-                    d="M0 10 C 110 34, 280 28, 400 2 L 400 32 L 0 32 Z"
-                    fill="#FFFFFF"
-                    fillOpacity="0.96"
+              <a
+                href={video.youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col overflow-hidden rounded-[24px] border border-white/95 bg-white/85 shadow-[0_20px_50px_-16px_rgba(68,32,158,0.18)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_26px_55px_-14px_rgba(88,45,198,0.28)]"
+              >
+                {/* Video Thumbnail + Wave Cut */}
+                <div className="relative aspect-[16/9.5] overflow-hidden bg-[#241748]">
+                  <Image
+                    src={video.thumbnail}
+                    alt={video.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                </svg>
-              </div>
+                  <div className="absolute inset-0 bg-[#1B1038]/12 transition-colors group-hover:bg-[#1B1038]/24" />
 
-              {/* Card Body */}
-              <div className="flex flex-1 flex-col justify-between bg-gradient-to-b from-white/95 to-[#F4EEFF]/95 px-6 pb-6 pt-3">
-                <h3 className="line-clamp-2 font-sans text-[16px] font-bold leading-snug text-[#21124B] transition-colors group-hover:text-[#5B31C7]">
-                  {video.title}
-                </h3>
+                  {/* Top-Right Metadata Pill */}
+                  <span className="absolute right-3.5 top-3.5 z-10 rounded-full bg-[#1C1238]/75 px-3 py-1 font-sans text-[11px] font-semibold text-white backdrop-blur-sm">
+                    {video.views}
+                  </span>
 
-                <span className="mt-4 inline-flex items-center gap-2 font-sans text-[13px] font-semibold text-[#3B2180] transition-colors group-hover:text-[#5E35CE]">
-                  <span>Watch on YouTube</span>
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </div>
-            </a>
+                  {/* Center White Play Button */}
+                  <span className="absolute inset-0 z-10 flex items-center justify-center">
+                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-[#6136D6] shadow-[0_12px_28px_-6px_rgba(36,23,72,0.45)] transition-transform duration-300 group-hover:scale-110">
+                      <Play className="ml-0.5 h-5 w-5 fill-current" />
+                    </span>
+                  </span>
+
+                  {/* Curved Bottom Wave Transition */}
+                  <svg
+                    viewBox="0 0 400 32"
+                    fill="none"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 -bottom-px z-10 h-7 w-full"
+                  >
+                    <path
+                      d="M0 10 C 110 34, 280 28, 400 2 L 400 32 L 0 32 Z"
+                      fill="#FFFFFF"
+                      fillOpacity="0.96"
+                    />
+                  </svg>
+                </div>
+
+                {/* Card Body */}
+                <div className="flex flex-1 flex-col justify-between bg-gradient-to-b from-white/95 to-[#F4EEFF]/95 px-6 pb-6 pt-3">
+                  <h3 className="line-clamp-2 font-sans text-[16px] font-bold leading-snug text-[#21124B] transition-colors group-hover:text-[#5B31C7]">
+                    {video.title}
+                  </h3>
+
+                  <span className="mt-4 inline-flex items-center gap-2 font-sans text-[13px] font-semibold text-[#3B2180] transition-colors group-hover:text-[#5E35CE]">
+                    <span>Watch on YouTube</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </a>
+            </Reveal>
           ))}
         </div>
       </div>

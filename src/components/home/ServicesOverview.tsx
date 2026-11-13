@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { HOME_SERVICES } from "@/data/services";
 import { Pinfold, type PinfoldNote } from "@/components/ui/Pinfold";
 import { FluidGlassButton } from "@/components/ui/FluidGlassButton";
+import { Reveal } from "@/components/ui/Reveal";
 
 const CARD_ROLES = [
   "Curated Buyer Advisory",
@@ -52,7 +53,7 @@ export function ServicesOverview() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <Reveal variant="fade-up" className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3.5">
               <span className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#4C2B9A]">
@@ -85,7 +86,7 @@ export function ServicesOverview() {
               <ArrowRight className="h-4 w-4" />
             </FluidGlassButton>
           </div>
-        </div>
+        </Reveal>
 
         {/* Interactive Frameless Pinfold Cards */}
         <div className="mt-12">

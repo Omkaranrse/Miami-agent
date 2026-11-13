@@ -4,6 +4,7 @@ import { ContactHero } from "@/components/contact/ContactHero";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactDetails } from "@/components/contact/ContactDetails";
 import { ContactWhatsAppBanner } from "@/components/contact/ContactWhatsAppBanner";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata = buildPageMetadata({
   title: "Contact Us | Get in Touch with Move Miami Realtor",
@@ -34,17 +35,23 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-8 xl:gap-10">
             {/* Left Column: We'd Love to Hear From You (Send a Message) */}
             <div className="lg:col-span-7">
-              <ContactForm />
+              <Reveal variant="fade-up">
+                <ContactForm />
+              </Reveal>
             </div>
 
             {/* Right Column: Contact Information */}
             <div className="lg:col-span-5">
-              <ContactDetails />
+              <Reveal variant="fade-up" delay={0.12}>
+                <ContactDetails />
+              </Reveal>
             </div>
           </div>
 
           {/* 3. Prefer to Talk? WhatsApp Banner */}
-          <ContactWhatsAppBanner />
+          <Reveal variant="fade-up" delay={0.18}>
+            <ContactWhatsAppBanner />
+          </Reveal>
         </PageContainer>
       </section>
     </div>

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { FluidGlassButton } from "@/components/ui/FluidGlassButton";
 import { EyeGlowButton } from "@/components/ui/EyeGlowButton";
 import { TrustIndicators } from "@/components/home/TrustIndicators";
@@ -20,27 +23,48 @@ const HERO_AVATARS = [
   },
 ];
 
+const LUXURY_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 export function HeroSection() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const getFadeUp = (delay: number) => {
+    if (shouldReduceMotion) return {};
+    return {
+      initial: { opacity: 0, y: 18 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.65, delay, ease: LUXURY_EASE },
+    };
+  };
+
   return (
     <section className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden bg-[#F4F1FC] pb-7 pt-28 text-[#1F1B2E] md:pb-8 md:pt-32">
-      {/* Background Architectural Miami Twilight Photo */}
-      <Image
-        src="/images/home/hero-pastel.jpg"
-        alt="Modern waterfront luxury villa in Miami overlooking Biscayne Bay and skyline at twilight"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
+      {/* Background Architectural Miami Twilight Photo with Cinematic Slow Zoom */}
+      <div className="absolute inset-0 overflow-hidden">
+        <Image
+          src="/images/home/hero-pastel.jpg"
+          alt="Modern waterfront luxury villa in Miami overlooking Biscayne Bay and skyline at twilight"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center animate-cinematic-zoom"
+        />
+      </div>
 
       {/* Main Left-Aligned Editorial Copy */}
       <div className="relative z-10 my-auto mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-[#4A4260] [text-shadow:0_0_18px_rgba(255,255,255,0.98),0_0_8px_rgba(255,255,255,0.92)]">
+          <motion.p
+            {...getFadeUp(0.1)}
+            className="font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-[#4A4260] [text-shadow:0_0_18px_rgba(255,255,255,0.98),0_0_8px_rgba(255,255,255,0.92)]"
+          >
             Miami-Dade &amp; Broward <span className="mx-1.5">•</span> Attorney-Led Brokerage
-          </p>
+          </motion.p>
 
-          <h1 className="heading-hero mt-4 text-[#1B162B] [text-shadow:0_0_32px_rgba(255,255,255,0.96),0_0_14px_rgba(255,255,255,0.92),0_4px_20px_rgba(124,92,224,0.22)]">
+          <motion.h1
+            {...getFadeUp(0.22)}
+            className="heading-hero mt-4 text-[#1B162B] [text-shadow:0_0_32px_rgba(255,255,255,0.96),0_0_14px_rgba(255,255,255,0.92),0_4px_20px_rgba(124,92,224,0.22)]"
+          >
             Your Guide to
             <br />
             Buying, Selling &amp;
@@ -79,10 +103,13 @@ export function HeroSection() {
                 </defs>
               </svg>
             </span>
-          </h1>
+          </motion.h1>
 
           {/* CTA Pill Buttons */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <motion.div
+            {...getFadeUp(0.35)}
+            className="mt-8 flex flex-wrap items-center gap-4"
+          >
             <FluidGlassButton href="/listings" className="px-7 py-3.5 text-[14px]">
               <span>Explore Properties</span>
               <ArrowRight className="h-4 w-4" />
@@ -91,10 +118,10 @@ export function HeroSection() {
             <EyeGlowButton href="/about-us#team" className="text-[14px]">
               <span>Meet Our Team</span>
             </EyeGlowButton>
-          </div>
+          </motion.div>
 
           {/* Agent Avatars Frosted Trust Capsule */}
-          <div className="mt-8">
+          <motion.div {...getFadeUp(0.48)} className="mt-8">
             <Link
               href="/about-us#team"
               className="group inline-flex items-center gap-3.5 rounded-full border border-white/85 bg-white/75 py-2 pl-2.5 pr-4 shadow-[0_14px_34px_-10px_rgba(33,18,75,0.22)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4C4FA] hover:bg-white/90 hover:shadow-[0_18px_38px_-10px_rgba(74,34,168,0.28)]"
@@ -135,14 +162,17 @@ export function HeroSection() {
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </span>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Bottom Glassmorphic Trust Bar on Hero Image */}
-      <div className="relative z-10 mx-auto mt-6 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <motion.div
+        {...getFadeUp(0.6)}
+        className="relative z-10 mx-auto mt-6 w-full max-w-7xl px-4 sm:px-6 lg:px-8"
+      >
         <TrustIndicators />
-      </div>
+      </motion.div>
     </section>
   );
 }

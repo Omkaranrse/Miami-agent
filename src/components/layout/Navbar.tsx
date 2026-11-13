@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { BROKERAGE_INFO } from "@/lib/constants";
 import { MAIN_NAV_ITEMS } from "@/data/navigation";
 import { FluidGlassButton } from "@/components/ui/FluidGlassButton";
@@ -147,13 +148,20 @@ export function Navbar() {
                     <div className="inline-flex items-center gap-1">
                       <Link
                         href={item.link}
-                        className={`whitespace-nowrap font-sans text-[14px] font-semibold tracking-[0.01em] transition-colors ${
+                        className={`relative whitespace-nowrap font-sans text-[14px] font-semibold tracking-[0.01em] transition-colors ${
                           isActive
                             ? "text-[#4D2DB5]"
                             : "text-[#1F1B2E] hover:text-[#4D2DB5]"
                         }`}
                       >
                         {item.title}
+                        {isActive && (
+                          <motion.span
+                            layoutId="nav-active-pill"
+                            className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-[#321477] to-[#7C52EB]"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
                       </Link>
                       <button
                         type="button"
@@ -172,22 +180,30 @@ export function Navbar() {
                       </button>
                     </div>
 
-                    {isDropdownOpen && (
-                      <div className="absolute left-0 top-full pt-3">
-                        <div className="w-56 rounded-2xl border border-[#E2DCF0] bg-white/95 p-2 shadow-xl backdrop-blur-md">
-                          {item.children.map((sub) => (
-                            <Link
-                              key={sub.href}
-                              href={sub.href}
-                              onClick={() => setOpenDropdown(null)}
-                              className="block rounded-xl px-3.5 py-2.5 font-sans text-[14px] font-semibold text-[#1F1B2E] transition-colors hover:bg-[#F3EFFC] hover:text-[#4D2DB5]"
-                            >
-                              {sub.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    <AnimatePresence>
+                      {isDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                          transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute left-0 top-full pt-3"
+                        >
+                          <div className="w-56 rounded-2xl border border-[#E2DCF0] bg-white/95 p-2 shadow-xl backdrop-blur-md">
+                            {item.children.map((sub) => (
+                              <Link
+                                key={sub.href}
+                                href={sub.href}
+                                onClick={() => setOpenDropdown(null)}
+                                className="block rounded-xl px-3.5 py-2.5 font-sans text-[14px] font-semibold text-[#1F1B2E] transition-all hover:bg-[#F3EFFC] hover:text-[#4D2DB5] hover:translate-x-1"
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </li>
                 );
               }
@@ -196,13 +212,20 @@ export function Navbar() {
                 <li key={item.title}>
                   <Link
                     href={item.link}
-                    className={`whitespace-nowrap font-sans text-[14px] font-semibold tracking-[0.01em] transition-colors ${
+                    className={`relative whitespace-nowrap font-sans text-[14px] font-semibold tracking-[0.01em] transition-colors ${
                       isActive
                         ? "text-[#4D2DB5]"
                         : "text-[#1F1B2E] hover:text-[#4D2DB5]"
                     }`}
                   >
                     {item.title}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-[#321477] to-[#7C52EB]"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
                   </Link>
                 </li>
               );
@@ -243,56 +266,64 @@ export function Navbar() {
         </nav>
 
         {/* Mobile Drawer */}
-        {mobileOpen && (
-          <div className="mt-2.5 rounded-3xl border border-white/90 bg-white/95 p-5 shadow-2xl backdrop-blur-xl lg:hidden">
-            <ul className="space-y-1">
-              {MAIN_NAV_ITEMS.map((item) => (
-                <li key={item.title}>
-                  <Link
-                    href={item.link}
-                    onClick={() => setMobileOpen(false)}
-                    className="block rounded-xl px-3 py-2.5 font-sans text-[14px] font-semibold text-[#1F1B2E] hover:bg-[#F3EFFC] hover:text-[#4D2DB5]"
-                  >
-                    {item.title}
-                  </Link>
-                  {item.children && (
-                    <div className="ml-4 border-l border-[#E2DCF0] pl-3">
-                      {item.children.map((sub) => (
-                        <Link
-                          key={sub.href}
-                          href={sub.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="block rounded-lg px-2.5 py-2 font-sans text-[14px] font-medium text-[#5C5570] hover:text-[#4D2DB5]"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-2.5 rounded-3xl border border-white/90 bg-white/95 p-5 shadow-2xl backdrop-blur-xl lg:hidden"
+            >
+              <ul className="space-y-1">
+                {MAIN_NAV_ITEMS.map((item) => (
+                  <li key={item.title}>
+                    <Link
+                      href={item.link}
+                      onClick={() => setMobileOpen(false)}
+                      className="block rounded-xl px-3 py-2.5 font-sans text-[14px] font-semibold text-[#1F1B2E] transition-colors hover:bg-[#F3EFFC] hover:text-[#4D2DB5]"
+                    >
+                      {item.title}
+                    </Link>
+                    {item.children && (
+                      <div className="ml-4 border-l border-[#E2DCF0] pl-3">
+                        {item.children.map((sub) => (
+                          <Link
+                            key={sub.href}
+                            href={sub.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="block rounded-lg px-2.5 py-2 font-sans text-[14px] font-medium text-[#5C5570] transition-colors hover:text-[#4D2DB5]"
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
 
-            <div className="mt-4 flex flex-col gap-2.5 border-t border-[#E2DCF0] pt-4">
-              <FluidGlassButton
-                href={BROKERAGE_INFO.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full px-5 py-3 text-[14px]"
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span>WhatsApp</span>
-              </FluidGlassButton>
-              <EyeGlowButton
-                href={BROKERAGE_INFO.officePhoneHref}
-                className="w-full text-[14px]"
-              >
-                <Phone className="h-4 w-4 text-[#4D2DB5]" />
-                <span>Call {BROKERAGE_INFO.officePhoneDisplay}</span>
-              </EyeGlowButton>
-            </div>
-          </div>
-        )}
+              <div className="mt-4 flex flex-col gap-2.5 border-t border-[#E2DCF0] pt-4">
+                <FluidGlassButton
+                  href={BROKERAGE_INFO.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full px-5 py-3 text-[14px]"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span>WhatsApp</span>
+                </FluidGlassButton>
+                <EyeGlowButton
+                  href={BROKERAGE_INFO.officePhoneHref}
+                  className="w-full text-[14px]"
+                >
+                  <Phone className="h-4 w-4 text-[#4D2DB5]" />
+                  <span>Call {BROKERAGE_INFO.officePhoneDisplay}</span>
+                </EyeGlowButton>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

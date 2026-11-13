@@ -6,6 +6,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { PropertyGrid } from "@/components/properties/PropertyGrid";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata = buildPageMetadata({
   title: "Miami Properties & MLS Listings | Move Miami Realtor",
@@ -57,7 +58,7 @@ export default async function ListingsPage({
 
         <PageContainer className="relative z-10">
           <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-            <div className="max-w-3xl">
+            <Reveal variant="fade-up" className="max-w-3xl">
               {/* Eyebrow Pill */}
               <div className="inline-flex items-center gap-2 rounded-full border border-[#E4D7FF] bg-white/80 px-4 py-1.5 shadow-xs backdrop-blur-sm">
                 <span className="h-2 w-2 rounded-full bg-[#5B2EC6]" />
@@ -83,10 +84,10 @@ export default async function ListingsPage({
                 Broward—from waterfront estates and luxury condominiums to
                 exclusive off-market opportunities.
               </p>
-            </div>
+            </Reveal>
 
             {/* Request Off-Market Action */}
-            <div className="flex shrink-0 items-center gap-3">
+            <Reveal variant="fade-up" delay={0.15} className="flex shrink-0 items-center gap-3">
               <Link
                 href="/buy"
                 className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#321477] via-[#5B2EC6] to-[#7C52EB] px-6 py-3.5 font-sans text-[14px] font-bold text-white shadow-[0_12px_28px_-6px_rgba(91,46,198,0.45)] transition-all hover:shadow-[0_16px_32px_-6px_rgba(91,46,198,0.6)] hover:-translate-y-0.5 active:translate-y-0"
@@ -95,7 +96,7 @@ export default async function ListingsPage({
                 <span>Request Off-Market Options</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
-            </div>
+            </Reveal>
           </div>
         </PageContainer>
       </section>

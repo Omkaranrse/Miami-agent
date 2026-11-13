@@ -16,6 +16,7 @@ import { PropertyDetails } from "@/components/properties/PropertyDetails";
 import { PropertyFeatures } from "@/components/properties/PropertyFeatures";
 import { PropertyInquiry } from "@/components/properties/PropertyInquiry";
 import { PropertyCard } from "@/components/properties/PropertyCard";
+import { Reveal } from "@/components/ui/Reveal";
 
 export async function generateStaticParams() {
   const slugs = await getAllPropertySlugs();
@@ -88,7 +89,7 @@ export default async function PropertyDetailPage({
       <section className="relative z-10 pb-16 pt-2 md:pb-24">
         <PageContainer>
           {/* Main Property Headline Banner */}
-          <div className="mb-8 flex flex-col justify-between gap-6 border-b border-[#E5DBFB]/80 pb-8 lg:flex-row lg:items-end">
+          <Reveal variant="fade-up" className="mb-8 flex flex-col justify-between gap-6 border-b border-[#E5DBFB]/80 pb-8 lg:flex-row lg:items-end">
             <div>
               <PropertyStatus
                 status={property.status}
@@ -120,19 +121,26 @@ export default async function PropertyDetailPage({
                 </p>
               )}
             </div>
-          </div>
+          </Reveal>
 
           {/* Grid Layout: Left Content, Right Inquiry Desk */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
             {/* Left Column: Gallery, Overview Details, Features, Renderings & MLS Disclosure */}
             <div className="lg:col-span-7">
-              <PropertyGallery
-                images={property.gallery}
-                address={property.address}
-              />
+              <Reveal variant="fade-up" delay={0.08}>
+                <PropertyGallery
+                  images={property.gallery}
+                  address={property.address}
+                />
+              </Reveal>
 
-              <PropertyDetails property={property} />
-              <PropertyFeatures property={property} />
+              <Reveal variant="fade-up" delay={0.12}>
+                <PropertyDetails property={property} />
+              </Reveal>
+
+              <Reveal variant="fade-up" delay={0.16}>
+                <PropertyFeatures property={property} />
+              </Reveal>
 
               {property.dataSource === "mls-idx-feed" && (
                 <div className="mt-8 rounded-[24px] border border-[#E5DBFB] bg-white/80 p-6 text-xs leading-relaxed text-[#51476E] shadow-sm backdrop-blur-md">
@@ -152,7 +160,9 @@ export default async function PropertyDetailPage({
             {/* Right Column: Direct Property Desk */}
             <div className="lg:col-span-5">
               <div className="sticky top-28">
-                <PropertyInquiry property={property} />
+                <Reveal variant="fade-up" delay={0.14}>
+                  <PropertyInquiry property={property} />
+                </Reveal>
               </div>
             </div>
           </div>
@@ -162,7 +172,7 @@ export default async function PropertyDetailPage({
       {/* Related Portfolio Listings */}
       <section className="relative z-10 border-t border-[#E5DBFB]/70 bg-white/90 py-16 backdrop-blur-md md:py-24">
         <PageContainer>
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <Reveal variant="fade-up" className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#E4D7FF] bg-[#F3ECFF] px-3.5 py-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-[#5B2EC6]" />
@@ -182,11 +192,13 @@ export default async function PropertyDetailPage({
               <span>See All Listings</span>
               <ArrowRight className="h-4 w-4 text-[#7C52EB]" />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="mt-10 grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
-            {related.map((item) => (
-              <PropertyCard key={item.slug} property={item} />
+            {related.map((item, idx) => (
+              <Reveal key={item.slug} delay={idx * 0.08} variant="fade-up" distance={16}>
+                <PropertyCard property={item} />
+              </Reveal>
             ))}
           </div>
         </PageContainer>

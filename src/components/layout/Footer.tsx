@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { BROKERAGE_INFO } from "@/lib/constants";
 import { SnapshotPile } from "./SnapshotPile";
+import { Reveal } from "@/components/ui/Reveal";
 
 const EXPLORE_LEFT = [
   { label: "Buy", href: "/buy" },
@@ -73,10 +74,10 @@ export function Footer() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 pb-10 pt-14 sm:px-6 lg:px-8 lg:pt-16">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+          <Reveal variant="fade-up" className="grid grid-cols-1 gap-10 lg:grid-cols-12">
             {/* Brand Column */}
             <div className="lg:col-span-4">
-              <Link href="/" className="inline-block">
+              <Link href="/" className="inline-block transition-transform duration-300 hover:scale-[1.02]">
                 <Image
                   src="/images/brand/logo-white.png"
                   alt="Move Miami Realtor"
@@ -96,7 +97,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Message Move Miami on WhatsApp"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:border-white/40 hover:bg-white/20"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duration-200 hover:scale-110 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/20 active:scale-95"
                 >
                   <MessageCircle className="h-4 w-4" />
                 </a>
@@ -105,7 +106,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Move Miami on Instagram"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:border-white/40 hover:bg-white/20"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duration-200 hover:scale-110 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/20 active:scale-95"
                 >
                   <Instagram className="h-4 w-4" />
                 </a>
@@ -114,7 +115,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Move Miami on YouTube"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:border-white/40 hover:bg-white/20"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duration-200 hover:scale-110 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/20 active:scale-95"
                 >
                   <Youtube className="h-4 w-4" />
                 </a>
@@ -123,7 +124,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Move Miami on TikTok"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:border-white/40 hover:bg-white/20"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duration-200 hover:scale-110 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/20 active:scale-95"
                 >
                   <TikTokIcon />
                 </a>
@@ -210,7 +211,7 @@ export function Footer() {
                 </li>
               </ul>
             </div>
-          </div>
+          </Reveal>
 
           {/* Bottom Legal & Licensing Row */}
           <div className="mt-12 flex flex-col justify-between gap-3 border-t border-white/15 pt-6 font-sans text-[12px] text-white/70 sm:flex-row sm:items-center">

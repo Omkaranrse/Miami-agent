@@ -51,7 +51,7 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header Row */}
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <div className="max-w-2xl">
+          <Reveal variant="fade-up" className="max-w-2xl">
             <div className="flex items-center gap-3.5">
               <span className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#4C2B9A]">
                 Featured Properties
@@ -75,14 +75,14 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
               <br className="hidden sm:inline" /> The full set lives on our
               listings page.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="shrink-0">
+          <Reveal variant="fade-up" delay={0.12} className="shrink-0">
             <FluidGlassButton href="/listings" className="px-7 py-3.5 text-[14px]">
               <span>View All Listings</span>
               <ArrowRight className="h-4 w-4" />
             </FluidGlassButton>
-          </div>
+          </Reveal>
         </div>
 
         {/* 3-Card Portfolio Grid */}

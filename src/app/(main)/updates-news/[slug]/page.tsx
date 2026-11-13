@@ -12,6 +12,8 @@ import { PageContainer } from "@/components/layout/PageContainer";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ArticleContent } from "@/components/content/ArticleContent";
 import { ArticleCard } from "@/components/content/ArticleCard";
+import { ReadingProgress } from "@/components/content/ReadingProgress";
+import { Reveal } from "@/components/ui/Reveal";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export async function generateStaticParams() {
@@ -55,6 +57,7 @@ export default async function ArticleDetailPage({
 
   return (
     <div className="bg-ivory pt-28">
+      <ReadingProgress />
       <div className="border-b border-sand bg-white py-4">
         <PageContainer className="flex flex-wrap items-center justify-between gap-4">
           <Breadcrumbs
@@ -76,13 +79,15 @@ export default async function ArticleDetailPage({
 
       <section className="bg-white py-12 md:py-16">
         <PageContainer>
-          <ArticleContent article={article} />
+          <Reveal variant="fade-up">
+            <ArticleContent article={article} />
+          </Reveal>
         </PageContainer>
       </section>
 
       <section className="border-t border-sand bg-ivory py-16 md:py-20">
         <PageContainer>
-          <div className="flex items-end justify-between gap-4">
+          <Reveal variant="fade-up" className="flex items-end justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark">
                 Keep Reading
@@ -97,10 +102,12 @@ export default async function ArticleDetailPage({
             >
               All Updates
             </Link>
-          </div>
+          </Reveal>
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {related.map((item) => (
-              <ArticleCard key={item.slug} article={item} />
+            {related.map((item, idx) => (
+              <Reveal key={item.slug} delay={idx * 0.08} variant="fade-up" distance={16}>
+                <ArticleCard article={item} />
+              </Reveal>
             ))}
           </div>
         </PageContainer>

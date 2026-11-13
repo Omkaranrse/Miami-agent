@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { PageTransition } from "@/components/ui/PageTransition";
 import { BROKERAGE_INFO } from "@/lib/constants";
 
 const cormorant = Cormorant_Garamond({
@@ -50,7 +51,9 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col bg-ivory font-sans text-[15px] leading-[1.65] text-charcoal antialiased md:text-[16px]">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
       </body>
     </html>

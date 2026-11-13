@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface PropertyGalleryProps {
   images: string[];
@@ -23,14 +24,25 @@ export function PropertyGallery({ images, address }: PropertyGalleryProps) {
     <div className="space-y-4">
       {/* Main Large Display Frame */}
       <div className="group relative aspect-[16/10] w-full overflow-hidden rounded-[28px] border border-white/90 bg-[#EDE5FA] shadow-[0_20px_50px_-16px_rgba(52,30,114,0.14)]">
-        <Image
-          src={images[activeIndex]}
-          alt={`${address} — photo ${activeIndex + 1}`}
-          fill
-          priority
-          sizes="(max-width: 1024px) 100vw, 66vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0.2 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={images[activeIndex]}
+              alt={`${address} — photo ${activeIndex + 1}`}
+              fill
+              priority={activeIndex === 0}
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+            />
+          </motion.div>
+        </AnimatePresence>
 
         {images.length > 1 && (
           <>

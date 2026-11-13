@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import type { VideoItem } from "@/types/video";
 import { Modal } from "@/components/ui/Modal";
+import { Reveal } from "@/components/ui/Reveal";
 import { VideoCard } from "./VideoCard";
 
 const VIDEO_CATEGORIES = [
@@ -31,10 +32,10 @@ export function VideoGrid({ videos }: { videos: VideoItem[] }) {
             key={category}
             type="button"
             onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 font-sans text-[14px] font-semibold tracking-[0.02em] transition-colors ${
+            className={`rounded-full px-5 py-2 font-sans text-[13px] font-semibold tracking-[0.02em] transition-all duration-300 ${
               selectedCategory === category
-                ? "bg-navy text-white"
-                : "border border-sand bg-white text-charcoal hover:border-navy"
+                ? "bg-navy text-white shadow-md"
+                : "border border-sand bg-white text-charcoal hover:border-navy hover:-translate-y-0.5"
             }`}
           >
             {category}
@@ -43,8 +44,10 @@ export function VideoGrid({ videos }: { videos: VideoItem[] }) {
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {visible.map((video) => (
-          <VideoCard key={video.id} video={video} onSelect={setActiveVideo} />
+        {visible.map((video, idx) => (
+          <Reveal key={video.id} delay={Math.min(idx * 0.05, 0.3)}>
+            <VideoCard video={video} onSelect={setActiveVideo} />
+          </Reveal>
         ))}
       </div>
 

@@ -26,7 +26,7 @@ const SIZE_CLASSES: Record<Size, string> = {
 };
 
 const BASE_CLASSES =
-  "inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold tracking-[0.03em] transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer";
+  "inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold tracking-[0.03em] transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer";
 
 interface BaseProps {
   variant?: Variant;

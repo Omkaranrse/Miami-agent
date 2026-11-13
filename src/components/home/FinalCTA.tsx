@@ -3,6 +3,7 @@ import { ArrowRight, MessageCircle, Phone } from "lucide-react";
 import { BROKERAGE_INFO } from "@/lib/constants";
 import { FluidGlassButton } from "@/components/ui/FluidGlassButton";
 import { EyeGlowButton } from "@/components/ui/EyeGlowButton";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface FinalCTAProps {
   headline?: string;
@@ -18,14 +19,14 @@ export function FinalCTA({
       {/* Right Side Pastel Miami Skyline Photography with Curved Lavender Mask */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 w-full md:w-[60%] lg:w-[54%]"
+        className="pointer-events-none absolute inset-y-0 right-0 w-full overflow-hidden md:w-[60%] lg:w-[54%]"
       >
         <Image
           src="/images/heroes/hero-skyline.jpg"
           alt=""
           fill
           sizes="(max-width: 768px) 100vw, 55vw"
-          className="object-cover object-right opacity-85"
+          className="object-cover object-right opacity-85 animate-cinematic-zoom"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#F4EFFF] via-[#F2ECFF]/80 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#EDE5FF]/55 via-transparent to-[#F8F5FF]/70" />
@@ -77,7 +78,7 @@ export function FinalCTA({
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
+        <Reveal variant="fade-up" className="max-w-2xl">
           <div className="flex items-center gap-3.5">
             <span className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#4C2B9A]">
               Let&apos;s Partner
@@ -151,7 +152,7 @@ export function FinalCTA({
               <span>Call our team</span>
             </EyeGlowButton>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

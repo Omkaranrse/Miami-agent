@@ -7,6 +7,7 @@ import { BROKERAGE_INFO } from "@/lib/constants";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { AgentProfile } from "@/components/agents/AgentProfile";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { Reveal } from "@/components/ui/Reveal";
 
 export async function generateStaticParams() {
   const slugs = await getAllAgentSlugs();
@@ -66,7 +67,9 @@ export default async function AgentDetailPage({
             </Link>
           </div>
 
-          <AgentProfile agent={agent} />
+          <Reveal variant="fade-up">
+            <AgentProfile agent={agent} />
+          </Reveal>
         </PageContainer>
       </section>
 

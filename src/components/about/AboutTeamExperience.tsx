@@ -6,6 +6,7 @@ import { GlassTeamCard } from "@/components/agents/GlassTeamCard";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { FluidGlassButton } from "@/components/ui/FluidGlassButton";
 import { EyeGlowButton } from "@/components/ui/EyeGlowButton";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface AboutTeamExperienceProps {
   principal: Agent;
@@ -67,7 +68,7 @@ export function AboutTeamExperience({
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">
             {/* Left Editorial Narrative */}
-            <div className="lg:col-span-7">
+            <Reveal variant="fade-up" className="lg:col-span-7">
               <div className="inline-flex items-center gap-2.5 rounded-full border border-[#D4C5F9] bg-white/80 px-4 py-1.5 backdrop-blur-sm">
                 <span className="h-2 w-2 rounded-full bg-[#6136D6]" />
                 <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#4C2B9A]">
@@ -100,7 +101,7 @@ export function AboutTeamExperience({
                 ].map((chip) => (
                   <span
                     key={chip}
-                    className="rounded-full border border-white/90 bg-white/75 px-4 py-2 font-sans text-[12px] font-semibold text-[#2E1A69] shadow-xs backdrop-blur-sm"
+                    className="rounded-full border border-white/90 bg-white/75 px-4 py-2 font-sans text-[12px] font-semibold text-[#2E1A69] shadow-xs backdrop-blur-sm transition-transform duration-200 hover:scale-105"
                   >
                     {chip}
                   </span>
@@ -131,39 +132,43 @@ export function AboutTeamExperience({
                   <span>WhatsApp Direct</span>
                 </a>
               </div>
-            </div>
+            </Reveal>
 
             {/* Right Interactive 3D Identity Kit Credential */}
-            <div className="flex justify-center lg:col-span-5 lg:justify-end">
+            <Reveal variant="fade-up" delay={0.15} className="flex justify-center lg:col-span-5 lg:justify-end">
               <IdentityKitBadge agent={principal} />
-            </div>
+            </Reveal>
           </div>
 
           {/* 2. Simple 3-Pillar Brokerage DNA Row */}
           <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {BROKERAGE_PILLARS.map((pillar) => {
+            {BROKERAGE_PILLARS.map((pillar, idx) => {
               const Icon = pillar.icon;
               return (
-                <div
+                <Reveal
                   key={pillar.number}
-                  className="rounded-[22px] border border-white/90 bg-white/75 p-7 shadow-[0_18px_45px_-16px_rgba(61,27,142,0.2)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-1"
+                  delay={idx * 0.08}
+                  variant="fade-up"
+                  distance={16}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#EFE9FF] to-[#E0D2FF] text-[#5329B8]">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span className="font-sans text-[11px] font-bold tracking-[0.18em] text-[#7D68B2]">
-                      {pillar.number}
-                    </span>
-                  </div>
+                  <div className="h-full rounded-[22px] border border-white/90 bg-white/75 p-7 shadow-[0_18px_45px_-16px_rgba(61,27,142,0.2)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#EFE9FF] to-[#E0D2FF] text-[#5329B8]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="font-sans text-[11px] font-bold tracking-[0.18em] text-[#7D68B2]">
+                        {pillar.number}
+                      </span>
+                    </div>
 
-                  <h2 className="heading-editorial mt-5 text-[24px] font-medium text-[#21124B]">
-                    {pillar.title}
-                  </h2>
-                  <p className="mt-2.5 font-sans text-[14px] leading-relaxed text-[#4C4072]">
-                    {pillar.description}
-                  </p>
-                </div>
+                    <h2 className="heading-editorial mt-5 text-[24px] font-medium text-[#21124B]">
+                      {pillar.title}
+                    </h2>
+                    <p className="mt-2.5 font-sans text-[14px] leading-relaxed text-[#4C4072]">
+                      {pillar.description}
+                    </p>
+                  </div>
+                </Reveal>
               );
             })}
           </div>
@@ -181,7 +186,7 @@ export function AboutTeamExperience({
         />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <Reveal variant="fade-up" className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <div className="flex items-center gap-3">
                 <span className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#532EC0]">
@@ -205,11 +210,13 @@ export function AboutTeamExperience({
               Select any advisor to connect directly or inspect their complete
               neighborhood focus and transaction profile.
             </p>
-          </div>
+          </Reveal>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {advisors.map((advisor) => (
-              <GlassTeamCard key={advisor.slug} agent={advisor} />
+            {advisors.map((advisor, idx) => (
+              <Reveal key={advisor.slug} delay={idx * 0.08} variant="fade-up" distance={16}>
+                <GlassTeamCard agent={advisor} />
+              </Reveal>
             ))}
           </div>
         </div>

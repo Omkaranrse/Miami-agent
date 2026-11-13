@@ -18,6 +18,7 @@ import { BROKERAGE_INFO } from "@/lib/constants";
 import { GravityInstagramCubes } from "@/components/ui/GravityInstagramCubes";
 import { FluidGlassButton } from "@/components/ui/FluidGlassButton";
 import { EyeGlowButton } from "@/components/ui/EyeGlowButton";
+import { Reveal } from "@/components/ui/Reveal";
 
 const REEL_POSTERS: Record<
   string,
@@ -116,7 +117,7 @@ export function InstagramFeed() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header Row */}
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <Reveal variant="fade-up" className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#D4C5F9] bg-white/85 px-3.5 py-1.5 backdrop-blur-sm">
               <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-gradient-to-tr from-[#FEDA75] via-[#D62976] to-[#4F5BD5] text-white">
@@ -182,7 +183,7 @@ export function InstagramFeed() {
               <ArrowRight className="h-4 w-4" />
             </FluidGlassButton>
           </div>
-        </div>
+        </Reveal>
 
         {/* 3 Vertical Reels Grid with Left/Right Carousel Buttons */}
         <div className="relative mt-12">

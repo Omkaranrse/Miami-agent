@@ -6,6 +6,7 @@ import type { Property, PropertyCategory, PropertyType } from "@/types/property"
 import { usePropertyFilters } from "@/hooks/usePropertyFilters";
 import { PropertyCard } from "./PropertyCard";
 import { PropertyFilters } from "./PropertyFilters";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface PropertyGridProps {
   portfolioProperties: Property[];
@@ -64,8 +65,15 @@ export function PropertyGrid({
       {/* Property Cards Grid or Empty State */}
       {filters.filtered.length > 0 ? (
         <div className="mt-8 grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {filters.filtered.map((property) => (
-            <PropertyCard key={property.slug} property={property} />
+          {filters.filtered.map((property, idx) => (
+            <Reveal
+              key={property.slug}
+              delay={Math.min(idx * 0.05, 0.3)}
+              variant="fade-up"
+              distance={16}
+            >
+              <PropertyCard property={property} />
+            </Reveal>
           ))}
         </div>
       ) : (
