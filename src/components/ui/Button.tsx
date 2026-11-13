@@ -1,25 +1,32 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 
-type Variant = "primary" | "gold" | "outline" | "outline-light";
+type Variant = "primary" | "secondary" | "ghost" | "gold" | "outline" | "outline-light";
 type Size = "sm" | "md" | "lg";
 
 const VARIANT_CLASSES: Record<Variant, string> = {
-  primary: "bg-navy text-white hover:bg-navy-light",
-  gold: "bg-gold text-navy hover:bg-white",
-  outline: "border border-sand bg-white text-navy hover:border-navy",
+  primary:
+    "bg-gradient-to-r from-[#321477] via-[#5B2EC6] to-[#7C52EB] text-white shadow-[0_10px_25px_-5px_rgba(91,46,198,0.35)] hover:shadow-[0_14px_30px_-5px_rgba(91,46,198,0.48)] hover:brightness-105 active:scale-[0.98]",
+  secondary:
+    "border border-[#E5DBFB] bg-white/90 text-[#1A0C38] shadow-[0_4px_14px_rgba(36,20,92,0.06)] hover:border-[#7C52EB] hover:bg-white hover:text-[#5B2EC6] active:scale-[0.98] backdrop-blur-md",
+  ghost:
+    "bg-transparent text-[#24145C] hover:bg-[#F4EEFD] hover:text-[#5B2EC6] active:scale-[0.98]",
+  gold:
+    "bg-gradient-to-r from-[#5B2EC6] via-[#7C52EB] to-[#9D76FA] text-white shadow-[0_8px_20px_-4px_rgba(91,46,198,0.3)] hover:brightness-105 active:scale-[0.98]",
+  outline:
+    "border border-[#DCD0FA] bg-white/80 text-[#1A0C38] hover:border-[#5B2EC6] hover:bg-white hover:text-[#5B2EC6] active:scale-[0.98] backdrop-blur-sm",
   "outline-light":
-    "border border-white/30 bg-transparent text-white hover:border-gold hover:text-gold",
+    "border border-white/40 bg-white/10 text-white hover:border-white hover:bg-white/20 active:scale-[0.98] backdrop-blur-md",
 };
 
 const SIZE_CLASSES: Record<Size, string> = {
-  sm: "px-5 py-2.5 text-[14px]",
-  md: "px-6 py-3.5 text-[14px]",
-  lg: "px-7 py-4 text-[14px]",
+  sm: "px-4 py-2 text-[13px]",
+  md: "px-6 py-3 text-[14px]",
+  lg: "px-7 py-3.5 sm:py-4 text-[14px] sm:text-[15px]",
 };
 
 const BASE_CLASSES =
-  "inline-flex items-center justify-center gap-2 font-sans text-[14px] font-semibold tracking-[0.04em] transition-colors disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold tracking-[0.03em] transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer";
 
 interface BaseProps {
   variant?: Variant;
